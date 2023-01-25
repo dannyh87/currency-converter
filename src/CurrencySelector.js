@@ -33,6 +33,3 @@ export default function CurrencySelector({ countries = [], value, setValue }) {
     />
   );
 }
-
-//fetch API flag
-// set flags ro

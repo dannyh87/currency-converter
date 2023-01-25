@@ -53,6 +53,9 @@ function App() {
   const [textValue, setTextValue] = React.useState("");
   const [error, setError] = React.useState("");
   const [result, setResult] = React.useState("");
+  const [countries, setCountries] = useState([]);
+  const [fromCurrency, setFromCurrency] = React.useState(null)
+  const [toCurrency, setToCurrency] = React.useState(null)
 
   const onChange = (e) => {
     let newValue = e.target.value;
@@ -64,19 +67,12 @@ function App() {
     }
   };
 
-  const [countries, setCountries] = useState([]);
-  const [fromCurrency, setFromCurrency] = React.useState(null)
-  const [toCurrency, setToCurrency] = React.useState(null)
-
-
   useEffect(() => {
     (async () => {
       const countries = await fetchCountriesData()
-
       setCountries(countries)
     })();
   }, []);
-
 
   const onClickConvert = async () => {
     const data = await fetch(getCurrencyUrl(fromCurrency.code), { mode: "cors" }).then(
@@ -85,7 +81,6 @@ function App() {
     let value = data.conversion_rates[toCurrency.code]*textValue
     setResult(value);
   }
-
 
   const onClickSwitch = () => {
     const tmp = fromCurrency
